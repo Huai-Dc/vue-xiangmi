@@ -43,7 +43,7 @@ export function getStorage(key){
 * 删除已存储的数据
 * @param key
 */
-export function removeData(key){
+export function removeStorage(key){
     if(key){
         if(localStorage.hasOwnProperty(key)){
             localStorage.removeItem(key);

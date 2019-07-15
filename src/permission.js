@@ -5,7 +5,7 @@ import router from './router/index'
 import store from './store/index';
 import { getStorage, getCookie } from "./utils/storageData";
 
-const whiteList = ['/login']; // 没有重定向白名单
+const whiteList = ['/login', '/register']; // 没有重定向白名单
 
 router.beforeEach((to, from, next) => {
     let _token = getCookie('User-Token');

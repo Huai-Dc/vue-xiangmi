@@ -76,5 +76,12 @@ module.exports = {
     // 三方插件的选项
     pluginOptions: {
         // ...
-    }
+    },
+    configureWebpack: {
+        resolve: {
+            alias: {
+                'vue$':'vue/dist/vue.js'
+            },
+        },
+    },
 }

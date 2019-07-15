@@ -1,62 +1,61 @@
 <template>
-    <el-container :class="{highSideBar: isCollapse}">
-        <!-- 左侧导航 -->
-        <el-aside width="190px" class="scroll-container">
-            <side-bar></side-bar>
-        </el-aside>
-        <!-- 右侧主体 -->
-        <el-container class="main-container">
-            <el-header>
-                <v-header></v-header>
-            </el-header>
-            <el-main>
-                <MainContent></MainContent>
-            </el-main>
-            <!--<el-footer>Footer</el-footer>-->
-        </el-container>
-    </el-container>
+    <div class="app-wrapper">
+        <div class="mainbody">
+            <app-main></app-main>
+        </div>
+        <van-tabbar v-model="active" route class="bottom-tab-bar">
+            <van-tabbar-item name="home" to="/HomeIndex">
+                <span>首页</span>
+                <i slot="icon" slot-scpoe="props" class="icon-home"></i>
+            </van-tabbar-item>
+            <van-tabbar-item name="activity" to="/Active">
+                <span>活动发布</span>
+                <i slot="icon" slot-scpoe="props" class="icon-gift"></i>
+            </van-tabbar-item>
+            <van-tabbar-item name="benefit" to="/Benefit">
+                <span>菜品发布</span>
+                <i slot="icon" slot-scpoe="props" class="icon-project"></i>
+            </van-tabbar-item>
+            <van-tabbar-item name="personal" to="/Personal">
+                <span>个人中心</span>
+                <i slot="icon" slot-scpoe="props" class="icon-user"></i>
+            </van-tabbar-item>
+        </van-tabbar>
+    </div>
 </template>
 
 <script>
-    import { mapGetters } from 'vuex'
-    import { SideBar, VHeader, MainContent } from './components/index'
+    import AppMain from './AppMain.vue'
+    import {Tabbar, TabbarItem} from 'vant';
     export default {
         name: "layout",
         data(){
             return {
+                active: 1
             }
         },
-        computed:{
-            ...mapGetters([
-                'isCollapse'
-            ]),
-        },
         components: {
-            MainContent,
-            SideBar, VHeader
+            AppMain,
+            Tabbar, TabbarItem,
         }
     }
 </script>
 
 <style type="text/scss" lang="scss" scoped>
-    .el-header, .el-footer {
-        background-color: #B3C0D1;
-        color: #333;
-        text-align: center;
-        line-height: 60px;
-    }
-    .el-aside {
-        background-color: #D3DCE6;
-        color: #333;
-        text-align: center;
-        line-height: 200px;
-    }
-    .el-main {
-        background-color: #E9EEF3;
-        color: #333;
-        text-align: center;
-    }
-    .el-container {
+    .app-wrapper, #app {
         height: 100%;
+        box-sizing: border-box;
+        position: relative;
+        overflow: auto;
+    }
+
+    .router-link-active {
+        color: #000 !important;
+    }
+
+    .bottom-tab-bar{
+        i{
+            font-size: 24px;
+        }
     }
 </style>

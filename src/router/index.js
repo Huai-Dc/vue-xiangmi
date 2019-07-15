@@ -3,10 +3,23 @@ import Router from 'vue-router';
 
 Vue.use(Router);
 
-const _import = require('./_import_' + process.env.NODE_ENV)
+// const _import = require('./_import_' + process.env.NODE_ENV)
 
 import Layout from '../views/layout/Layout';
 
+import Login from '../views/login/Login'
+import Register from '../views/login/Register'
+import StoreInfoModify from '../views/personal/StoreInfoModify'
+import PrizeManager from '../views/personal/PrizeManager'
+import PasswordModify from '../views/personal/PasswordModify'
+import Feedback from '../views/personal/Feedback'
+import PrizeDetailInfo from '../views/personal/PrizeDetailInfo'
+import ActiveItemEdit from '../views/index/ActiveItemEdit'
+import MenuItemEdit from '../views/index/MenuItemEdit'
+import HomeIndex from '../views/page/Index'
+import Active from '../views/page/Active'
+import Benefit from '../views/page/Benefit'
+import Personal from '../views/page/Personal'
 /**
  * hidden 是否在 导航栏显示
  * @type {*[]}
@@ -14,7 +27,56 @@ import Layout from '../views/layout/Layout';
 export const constantRouterMap = [
     {
         path: '/login',
-        component: _import('login/Login'),
+        name: 'login',
+        component: Login,//_import('login/Login'),
+        hidden: true
+    },
+    {
+        path: '/register',
+        name: 'register',
+        component: Register,
+        hidden: true
+    },
+    {
+        path: '/personal/infoManager',
+        name: 'infoManager',
+        component: StoreInfoModify,
+        hidden: true
+    },
+    {
+        path: '/personal/prizeManager',
+        name: 'prizeManager',
+        component: PrizeManager,
+        hidden: true
+    },
+    {
+        path: '/personal/passwordModify',
+        name: 'passwordModify',
+        component: PasswordModify,
+        hidden: true
+    },
+    {
+        path: '/personal/feedback',
+        name: 'feedback',
+        component: Feedback,
+        hidden: true
+    },
+    {
+        path: '/personal/prizeManager/prizeDetailInfo',
+        name: 'prizeDetailInfo',
+        component: PrizeDetailInfo,
+        hidden: true
+    },
+    {
+        path: '/index/activeItemManager',
+        name: 'activeItemManager',
+        component: ActiveItemEdit,
+        hidden: true
+    },
+    {
+        path: '/index/menuItemManager',
+        name: 'menuItemManager',
+        component: MenuItemEdit,
         hidden: true
     },
     {
@@ -25,58 +87,37 @@ export const constantRouterMap = [
             {
                 path: 'HomeIndex',
                 name: 'HomeIndex',
-                component: _import('Home'),
+                component: HomeIndex,
                 meta: {
                     title: '首页',
-                    icon: 'el-icon-home-fill'
-                }
-            }
-        ]
-    },
-    {
-        path: '/gaodeMap',
-        component: Layout,
-        meta: {
-            title: '高德地图',
-            icon: 'el-icon-location'
-        },
-        children: [
-            {
-                path: 'index',
-                component: _import('gaodeMap/index'),
-                name: 'gaodeMap',
-                meta: {
-                    title: 'vueAmap模块模式'
                 }
             },
             {
-                path: 'originalMap',
-                component: _import('gaodeMap/OriginalMap'),
-                name: 'originalMap',
+                path: 'Active',
+                name: 'Active',
+                component: Active,
                 meta: {
-                    title: '官方模式'
+                    title: '活动发布',
+                }
+            },{
+                path: 'Benefit',
+                name: 'Benefit',
+                component: Benefit,
+                meta: {
+                    title: '优惠发布',
+                }
+            },{
+                path: 'Personal',
+                name: 'Personal',
+                component: Personal,
+                meta: {
+                    title: '个人中心',
                 }
             }
         ]
     },
-    {
-        path: '/ECharts',
-        component: Layout,
-        meta: {
-            title: '百度EChart',
-            icon: 'el-icon-linechart'
-        },
-        children: [
-            {
-                path: 'index',
-                name: 'echartIndex',
-                component: _import('charts/index'),
-                meta:{
-                    title: '常见图表'
-                }
-            }
-        ]
-    }
+
+
 ];
 
 const router =  new Router({
