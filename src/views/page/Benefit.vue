@@ -87,7 +87,12 @@
                 </van-row>
             </van-col>
         </van-row>
-
+        <van-row type="flex" justify="center">
+            <van-col span="22">
+                <div class="form-title">联系电话</div>
+                <van-field v-on:blur="saveEditorData" v-model="phone" placeholder="请输入联系电话"/>
+            </van-col>
+        </van-row>
         <van-row type="flex" justify="center">
             <van-col span="22">
                 <div class="form-title">地址</div>
@@ -99,6 +104,7 @@
                 </div>
             </van-col>
         </van-row>
+
         <van-row type="flex" justify="center" class="active-submit-button">
             <van-col span="22" class="submit-button">
                 <van-button type="primary" size="large" @click.native="onsubmit">完成</van-button>
@@ -228,6 +234,7 @@
                     limit_num: '',  // 限制数量
                     format: '',  /// 备注
                 },
+                phone: "",  // 联系方式
                 postData: {} // 提交数据
             }
         },
@@ -262,6 +269,7 @@
                     "fitArea": this.fitArea,
                     "condition": this.condition,
                     "tableCols": this.tableCols,
+                    "mobile": this.phone,
                 }));
             },
             getEditorData(){
@@ -273,6 +281,7 @@
                 this.fitArea = data.fitArea;
                 this.condition = data.condition;
                 this.tableCols = data.tableCols || [];
+                this.phone = data.mobile;
             },
             onsubmit() {
                 if (!this.checkdata()) {
@@ -287,6 +296,7 @@
                 this.postData['end_time'] = this.endDate;
                 this.postData['address'] = this.fitArea;
                 this.postData['condition'] = this.condition;
+                this.postData['mobile'] = this.phone;
                 this.postData['token'] = getCookie('User-Token');
 
                 $http.post(apis.baseHost + apis.menuEdit, this.postData).then((res) => {
@@ -367,6 +377,7 @@
                 this.endDate = "";
                 this.fitArea = "";
                 this.condition = "";
+                this.phone = "";
             },
             updateCondition(e = '') {
                 this.condition = e;
@@ -379,7 +390,9 @@
                 }).then(res => {
                     let data = res.data;
                     if (data.code == 1) {
+                        console.log(data.data);
                         this.fitArea = data.data.address;
+                        this.phone = data.data.mobile;
                     }
                 });
             }

@@ -92,6 +92,13 @@
 
         <van-row type="flex" justify="center">
             <van-col span="22">
+                <div class="form-title">联系电话</div>
+                <van-field v-model="phone" placeholder="请输入联系电话"/>
+            </van-col>
+        </van-row>
+
+        <van-row type="flex" justify="center">
+            <van-col span="22">
                 <div class="form-title">地址</div>
                 <div class="tagContent">
                     <!--<van-tag v-for="item of areaList" @click.native="toggleAddress(item)" plain size="large"-->
@@ -101,6 +108,7 @@
                 </div>
             </van-col>
         </van-row>
+
         <van-row type="flex" justify="center" class="active-submit-button">
             <van-col span="22" class="submit-button">
                 <van-button type="primary" size="large" @click.native="onsubmit">完成</van-button>
@@ -218,6 +226,7 @@
                 },
                 postData: {}, // 提交数据
                 id: '', // item id
+                phone: "",  // 联系方式
                 item: null,  // 当前编辑请求到的数据
             }
         },
@@ -259,6 +268,7 @@
                 this.postData['condition'] = this.condition;
                 this.postData['token'] = getCookie('User-Token');
                 this.postData['id'] = this.id;
+                this.postData['mobile'] = this.phone;
                 $http.post(apis.baseHost + apis.menuEdit, this.postData).then((res) => {
                     let data = res.data;
                     if(data.code == 1){
@@ -309,7 +319,7 @@
                 })
             },
             checkdata() {
-                if (this.activeName == "" || this.startDate == "" || this.endDate == "" || this.fitArea == "" || this.condition == "") {
+                if (this.activeName == "" || this.startDate == "" || this.endDate == "" || this.fitArea == "" || this.condition == "" || this.phone == "") {
                     return false;
                 }
                 return true;
@@ -335,6 +345,7 @@
                 this.endDate = "";
                 this.fitArea = "";
                 this.condition = "";
+                this.phone = "";
             },
             getRouterData() {
                 this.id = this.$route.params.id;
@@ -361,8 +372,8 @@
                 this.fitArea = menuInfo.address;
                 this.startDate = menuInfo.begin_time;
                 this.endDate = menuInfo.end_time;
-
                 this.tableCols = menuInfo.info;
+                this.phone = menuInfo.mobile;
             },
             updateCondition(e = ''){
                 this.condition = e;
