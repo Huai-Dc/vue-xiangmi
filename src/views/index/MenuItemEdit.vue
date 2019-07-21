@@ -272,9 +272,15 @@
                 $http.post(apis.baseHost + apis.menuEdit, this.postData).then((res) => {
                     let data = res.data;
                     if(data.code == 1){
-                        Toast.success('修改成功！');
-                        this.$router.push({
-                            name: 'HomeIndex'
+                        let _this = this;
+                        Toast({
+                            type: "success",
+                            message: '修改成功！',
+                            onClose() {
+                                _this.$router.push({
+                                    name: 'HomeIndex'
+                                });
+                            }
                         });
                     }else{
                         Toast.fail(data.msg);

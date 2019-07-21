@@ -303,11 +303,18 @@
                     let data = res.data;
                     if (data.code == 1) {
                         removeStorage("benefit_data");
-                        this.$router.push({
-                            name: 'HomeIndex'
+                        let _this = this;
+                        Toast({
+                            type: "success",
+                            message: '新增成功！',
+                            onClose() {
+                                _this.resetData();
+                                _this.$router.push({
+                                    name: 'HomeIndex'
+                                });
+                            }
                         });
-                        Toast.success('新增成功！');
-                        this.resetData();
+
                     } else {
                         Toast.fail(data.msg);
                         return false;
@@ -390,7 +397,6 @@
                 }).then(res => {
                     let data = res.data;
                     if (data.code == 1) {
-                        console.log(data.data);
                         this.fitArea = data.data.address;
                         this.phone = data.data.mobile;
                     }
